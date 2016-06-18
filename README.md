@@ -17,7 +17,7 @@ $ docker build -t "dropbackup" .
 ## How to use
 
 ```
-$ docker run -it -v /test/:/data -e TOKEN=xxxxxxxxxxxxxxxxxxxxxxx -e DEST=test dropbackup
+$ docker run -it -v /test/:/data -e TOKEN=xxxxxxxxxxxxxxxxxxxxxxx -e DEST=test -e PYTHONIOENCODING=utf8 dropbackup
 ```
 
 ## How it works

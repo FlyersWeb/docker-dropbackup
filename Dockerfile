@@ -1,7 +1,11 @@
 FROM alpine:3.3
 
-ENV TOKEN=dropbox-token \
-  DEST=test
+ENV LC_ALL="en_US.UTF-8" \
+    LANG="en_US.UTF-8" \
+    LANGUAGE="en_US.UTF-8" \
+    PYTHONIOENCODING="utf8" \
+    TOKEN="dropbox-token" \
+    DEST=test
 
 RUN apk add --update \
     python \
@@ -11,8 +15,6 @@ RUN apk add --update \
     bash \
   && pip install virtualenv \
   && rm -rf /var/cache/apk/*
-
-RUN mkdir /data
 
 WORKDIR /app
 
