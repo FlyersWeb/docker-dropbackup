@@ -2,6 +2,18 @@
 
 Sync dropbox folder without installing anything besides docker
 
+## Install docker
+
+See https://www.docker.com/ for more help
+
+## How to build it
+
+```
+$ git clone https://github.com/FlyersWeb/docker-dropbackup.git
+$ cd docker-dropbackup
+$ docker build -t "dropbackup" .
+```
+
 ## How to use
 
 ```
