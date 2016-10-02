@@ -22,6 +22,8 @@ from dropbox.files import FileMetadata, FolderMetadata
 TOKEN = os.environ.get('TOKEN')
 DEST = os.environ.get('DEST')
 
+MAXSIZE = 60 * 1024 * 1024
+
 parser = argparse.ArgumentParser(description='Sync /data to Dropbox')
 parser.add_argument('rootdir', nargs='?', default='/data',
                     help='Local directory to upload')
@@ -74,6 +76,10 @@ def main():
         # First do all the files.
         for name in files:
             fullname = os.path.join(dn, name)
+            size = os.path.getsize(fullname)
+            if size > MAXSIZE :
+                print(name, "Oops! file is too big can't sync")
+                continue
             if not isinstance(name, six.text_type):
                 name = name.decode('utf-8')
             nname = unicodedata.normalize('NFC', name)
@@ -87,7 +93,6 @@ def main():
                 md = listing[nname]
                 mtime = os.path.getmtime(fullname)
                 mtime_dt = datetime.datetime(*time.gmtime(mtime)[:6])
-                size = os.path.getsize(fullname)
                 if (isinstance(md, dropbox.files.FileMetadata) and
                     mtime_dt == md.client_modified and size == md.size):
                     print(name, 'is already synced [stats match]')
